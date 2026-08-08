@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Downloader Tanpa Watermark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ambient background -->
+  <div class="noise-layer"></div>
+  <div class="orb orb--pink"></div>
+  <div class="orb orb--cyan"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark">TT</span>
+      <span class="brand__name">TikTok<span class="brand__dot"> Downloader</span></span>
+    </div>
+    <nav class="topbar__nav">
+      <span class="pill">tanpa watermark</span>
+      <span class="pill">100% gratis</span>
+    </nav>
+  </header>
+
+  <main class="stage">
+
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">tempel &middot; proses &middot; unduh</p>
+      <h1 class="hero__title">
+        Simpan video TikTok
+        <span class="hero__title-alt">dalam hitungan detik.</span>
+      </h1>
+      <p class="hero__sub">Tempel link video, foto slide, atau musiknya. Kami tarik versi HD-nya langsung dari server — nggak ada watermark nempel.</p>
+
+      <form class="url-dock" id="downloadForm" autocomplete="off">
+        <span class="url-dock__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13.5 6.5a4 4 0 0 1 5.66 5.66l-3 3a4 4 0 0 1-5.66 0" stroke-linecap="round"/>
+            <path d="M10.5 17.5a4 4 0 0 1-5.66-5.66l3-3a4 4 0 0 1 5.66 0" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <input
+          type="text"
+          id="urlInput"
+          class="url-dock__input"
+          placeholder="https://www.tiktok.com/@username/video/..."
+          inputmode="url"
+          required
+        >
+        <button type="button" id="pasteBtn" class="url-dock__paste">paste</button>
+        <button type="submit" id="submitBtn" class="url-dock__submit">
+          <span class="submit__label">Proses</span>
+          <span class="submit__spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <p class="hero__error" id="errorMsg" role="alert"></p>
+
+      <!-- scrub / progress line, signature element -->
+      <div class="scrubline" id="scrubline" aria-hidden="true">
+        <div class="scrubline__fill" id="scrublineFill"></div>
+        <div class="scrubline__head" id="scrublineHead"></div>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="result" id="result" hidden>
+      <div class="phone">
+        <div class="phone__notch"></div>
+        <div class="phone__screen">
+          <img id="coverImg" class="phone__cover" alt="Cover video">
+          <div class="phone__scan"></div>
+          <div class="phone__gradient"></div>
+          <div class="phone__meta">
+            <p class="phone__title" id="videoTitle">—</p>
+            <p class="phone__author" id="videoAuthor">—</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="result__panel">
+        <dl class="stat-row" id="statRow">
+          <div class="stat"><dt>plays</dt><dd id="statPlay">0</dd></div>
+          <div class="stat"><dt>likes</dt><dd id="statLike">0</dd></div>
+          <div class="stat"><dt>durasi</dt><dd id="statDuration">0s</dd></div>
+        </dl>
+
+        <div class="downloads" id="downloadList">
+          <!-- download rows injected by JS -->
+        </div>
+
+        <button class="reset-btn" id="resetBtn" type="button">&larr; unduh video lain</button>
+      </div>
+    </section>
+
+    <!-- EMPTY / HOW IT WORKS -->
+    <section class="how" id="howSection">
+      <div class="how__step" style="--i:0">
+        <span class="how__num">tempel</span>
+        <p>Salin link video dari aplikasi TikTok lalu tempel di kolom atas.</p>
+      </div>
+      <div class="how__step" style="--i:1">
+        <span class="how__num">proses</span>
+        <p>Server kami ambil metadata dan link asli tanpa watermark.</p>
+      </div>
+      <div class="how__step" style="--i:2">
+        <span class="how__num">unduh</span>
+        <p>Pilih kualitas HD, video biasa, musik, atau gambar slide.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <p>dibuat oleh Hattzy &middot; <a href="https://wa.me/6283178195174" target="_blank" rel="noopener">hubungi via WhatsApp</a></p>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
