@@ -1,3 +1,8 @@
+// ==========================================================
+// snaptik.dev — TikTok Downloader
+// Mengambil data dari API vibetik.net (endpoint sama seperti scraper.js)
+// ==========================================================
+
 // Lewat proxy serverless (/api/tiktok) supaya tidak kena blokir CORS
 // dari browser saat memanggil vibetik.net langsung.
 const API_BASE = '';
@@ -152,24 +157,16 @@ function renderResult(info) {
     note.textContent = 'Postingan ini berupa foto slide — TikTok tidak menyediakan versi video untuk tipe ini.';
     downloadList.appendChild(note);
   } else {
-    // Video post: selalu coba tampilkan minimal satu opsi video,
-    // pakai fallback bertingkat kalau kualitas HD tidak tersedia dari server.
-    const hasHD = Boolean(info.hdVideoUrl);
-    const hasStandard = Boolean(info.videoUrl) && info.videoUrl !== info.hdVideoUrl;
+    // Video post: tampilkan satu opsi video saja (tanpa label HD),
+    // otomatis pakai kualitas terbaik yang tersedia dari server.
+    const bestVideoUrl = info.hdVideoUrl || info.videoUrl;
 
-    if (hasHD) {
+    if (bestVideoUrl) {
       pushRow({
-        icon: '▶', name: 'Video HD', sub: 'Tanpa watermark · kualitas tinggi',
-        href: info.hdVideoUrl, filename: `${authorId}-${info.id}-hd.mp4`,
+        icon: '▶', name: 'Video', sub: 'Tanpa watermark',
+        href: bestVideoUrl, filename: `${authorId}-${info.id}.mp4`,
       });
-    }
-    if (hasStandard) {
-      pushRow({
-        icon: '▶', iconClass: 'cyan', name: 'Video Standar', sub: 'Tanpa watermark',
-        href: info.videoUrl, filename: `${authorId}-${info.id}.mp4`,
-      });
-    }
-    if (!hasHD && !hasStandard) {
+    } else {
       const note = document.createElement('p');
       note.style.cssText = 'color:var(--muted);font-family:var(--f-mono);font-size:12px;margin:0 0 4px;';
       note.textContent = 'Server sumber tidak mengembalikan link video untuk postingan ini. Coba lagi beberapa saat lagi.';
