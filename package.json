@@ -1,0 +1,11 @@
+{
+  "name": "snaptik-dev",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TikTok downloader tanpa watermark — static site",
+  "scripts": {
+    "dev": "npx serve public -l 3000",
+    "build": "echo 'Static site, tidak perlu build step'",
+    "start": "npx serve public -l 3000"
+  }
+}
