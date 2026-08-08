@@ -3,7 +3,9 @@
 // Mengambil data dari API vibetik.net (endpoint sama seperti scraper.js)
 // ==========================================================
 
-const API_BASE = 'https://vibetik.net';
+// Lewat proxy serverless (/api/tiktok) supaya tidak kena blokir CORS
+// dari browser saat memanggil vibetik.net langsung.
+const API_BASE = '';
 
 const form         = document.getElementById('downloadForm');
 const urlInput     = document.getElementById('urlInput');
@@ -87,16 +89,20 @@ function normalizeVideoData(raw) {
 
 async function getVideoInfo(tiktokUrl) {
   const params = new URLSearchParams({ url: tiktokUrl.trim() });
-  const res = await fetch(`${API_BASE}/api/v1/tiktok/info?${params.toString()}`, {
+  const res = await fetch(`/api/tiktok?${params.toString()}`, {
     headers: { Accept: 'application/json' },
   });
 
-  if (!res.ok) {
+  let data;
+  try {
+    data = await res.json();
+  } catch {
     throw new Error(`Server error (${res.status}). Coba lagi sebentar.`);
   }
 
-  const data = await res.json();
-
+  if (!res.ok) {
+    throw new Error(data?.message || `Server error (${res.status}).`);
+  }
   if (!data || data.status !== 'success') {
     throw new Error(data?.message || 'Gagal mengambil informasi video.');
   }
